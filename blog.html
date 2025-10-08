@@ -87,4 +87,45 @@
     </div>
   </section>
 </body>
+ <script>
+    // Mobile menu toggle
+    document
+      .getElementById("mobile-menu-btn")
+      .addEventListener("click", function () {
+        const mobileMenu = document.getElementById("mobile-menu");
+        mobileMenu.classList.toggle("hidden");
+      });
+    function toggleFAQ(id) {
+      const answer = document.getElementById(`answer-${id}`);
+      const toggle = document.getElementById(`toggle-${id}`);
+      const icon = toggle.querySelector("i");
+
+      // Close all other FAQs
+      for (let i = 1; i <= 5; i++) {
+        if (i !== id) {
+          const otherAnswer = document.getElementById(`answer-${i}`);
+          const otherToggle = document.getElementById(`toggle-${i}`);
+          const otherIcon = otherToggle.querySelector("i");
+
+          otherAnswer.classList.remove("open");
+          otherToggle.classList.remove("rotated");
+          otherIcon.classList.remove("fa-minus");
+          otherIcon.classList.add("fa-plus");
+        }
+      }
+
+      // Toggle current FAQ
+      if (answer.classList.contains("open")) {
+        answer.classList.remove("open");
+        toggle.classList.remove("rotated");
+        icon.classList.remove("fa-minus");
+        icon.classList.add("fa-plus");
+      } else {
+        answer.classList.add("open");
+        toggle.classList.add("rotated");
+        icon.classList.remove("fa-plus");
+        icon.classList.add("fa-minus");
+      }
+    }
+  </script>
 </html>
