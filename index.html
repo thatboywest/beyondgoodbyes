@@ -92,8 +92,8 @@
           class="text-sm font-medium hover:text-white transition-colors duration-200 tracking-wide">Pricing</a>
         <a href="#how" class="text-sm font-medium hover:text-white transition-colors duration-200 tracking-wide">How We
           Work</a>
-        <a href="/contact.html"
-          class="text-sm font-medium hover:text-white transition-colors duration-200 tracking-wide">Contact</a>
+        <a href="/blogs.html"
+          class="text-sm font-medium hover:text-white transition-colors duration-200 tracking-wide">Blog</a>
       </div>
 
       <!-- CTA Button and Mobile Menu -->
@@ -118,7 +118,7 @@
         <a href="#services" class="hover:text-white transition-colors py-2 text-sm font-medium">Our Services</a>
         <a href="./pricing.html" class="hover:text-white transition-colors py-2 text-sm font-medium">Pricing</a>
         <a href="#how" class="hover:text-white transition-colors py-2 text-sm font-medium">How we work</a>
-        <a href="/contact.html" class="hover:text-white transition-colors py-2 text-sm font-medium">Contact</a>
+        <a href="/blogs.html" class="hover:text-white transition-colors py-2 text-sm font-medium">Blog</a>
         <button
           class="bg-secondary text-primary px-7 py-2.5 rounded-full font-medium hover:bg-white transition-all duration-200 mt-4 w-full text-sm">
           Let's Talk
@@ -746,6 +746,7 @@
       }
     </script>
   </section>
+  
   <!-- How We Work Section -->
   <section id="how" class="gradient-hero relative overflow-hidden py-20 px-6">
     <!-- Subtle Background Pattern -->
@@ -851,6 +852,86 @@
       </div>
     </div>
   </section>
+
+  <section class="py-12 bg-gray-50">
+  <div class="max-w-6xl mx-auto px-4">
+    <h2 class="text-4xl font-bold text-primary mb-8 font-serif text-center">Latest from the Blog</h2>
+    <div id="latest-blogs" class="grid gap-6 md:grid-cols-3"></div>
+    <div class="text-center mt-8">
+      <a href="blogs.html" class="text-primary opacity-70 text-xs sm:text-sm tracking-[0.2em] font-medium">
+        View all blogs →
+      </a>
+    </div>
+  </div>
+</section>
+
+<script>
+  const latestContainer = document.getElementById("latest-blogs");
+  const HASHNODE_API = "https://gql.hashnode.com";
+  const PUBLICATION_HOST = "beyonggoodbyes.hashnode.dev";
+
+  const query = `
+    query GetRecentPosts($host: String!) {
+      publication(host: $host) {
+        posts(first: 3) {
+          edges {
+            node {
+              title
+              brief
+              slug
+              coverImage { url }
+              content { html }
+            }
+          }
+        }
+      }
+    }
+  `;
+
+  fetch(HASHNODE_API, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ query, variables: { host: PUBLICATION_HOST } }),
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      const publication = data?.data?.publication;
+      if (!publication) return;
+
+      const posts = publication.posts.edges;
+
+      latestContainer.innerHTML = posts
+        .map((post) => {
+          const node = post.node;
+          let imageUrl = node.coverImage?.url;
+
+          if (!imageUrl && node.content?.html) {
+            const match = node.content.html.match(/<img[^>]+src="([^">]+)"/);
+            if (match) imageUrl = match[1];
+          }
+
+          if (!imageUrl) {
+            imageUrl = "https://via.placeholder.com/600x400?text=Blog+Image";
+          }
+
+          return `
+            <div class="bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-lg transition transform hover:-translate-y-1">
+              <img src="${imageUrl}" alt="${node.title}" class="w-full h-48 object-cover">
+              <div class="p-5">
+                <h3 class="text-lg font-semibold text-primary mb-2">${node.title}</h3>
+                <p class="text-gray-600 text-sm mb-3">${node.brief}</p>
+                <a href="blog.html?slug=${node.slug}" class="text-primary font-medium hover:underline">Read More →</a>
+              </div>
+            </div>
+          `;
+        })
+        .join("");
+    })
+    .catch(() => {
+      latestContainer.innerHTML = `<p class="text-center text-gray-600">Couldn’t load blogs right now.</p>`;
+    });
+</script>
+
 
   <!-- FAQ Items-->
   <section class="bg-gray-custom py-8 px-4 relative overflow-hidden">

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Our Blogs | Beyond Goodbyes</title>
+  <script defer src="/scripts/blogs.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="index.css">
+  <style>
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeIn 1s ease-out forwards;
+    }
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+<body class="bg-gray-50 text-gray-900">
+  <!-- Navbar -->
+  <nav class="bg-primary text-secondary py-5 px-6 shadow-xl fixed top-0 left-0 right-0 z-50">
+    <div class="max-w-7xl mx-auto flex justify-between items-center">
+      <!-- Logo -->
+      <a href="/index.html">
+        <div class="flex items-center space-x-3">
+          <img src="/assets/beyondgoodbyes (1).png" alt="Beyond Logo" class="w-55 h-12 object-contain" />
+        </div>
+      </a>
+
+      <!-- Desktop Navigation -->
+      <div class="hidden md:flex space-x-10">
+        <a href="/about.html"
+          class="text-sm font-medium hover:text-white transition-colors duration-200 tracking-wide">Who We Are</a>
+
+        <a href="#services"
+          class="text-sm font-medium hover:text-white transition-colors duration-200 tracking-wide">Our Services</a>
+        <a href="./pricing.html"
+          class="text-sm font-medium hover:text-white transition-colors duration-200 tracking-wide">Pricing</a>
+        <a href="#how" class="text-sm font-medium hover:text-white transition-colors duration-200 tracking-wide">How We
+          Work</a>
+        <a href="/blogs.html"
+          class="text-sm font-medium hover:text-white transition-colors duration-200 tracking-wide">Blog</a>
+      </div>
+
+      <!-- CTA Button and Mobile Menu -->
+      <div class="flex items-center space-x-4">
+        <a href="/contact.html">
+          <button
+            class="hidden md:block bg-secondary text-primary px-7 py-2.5 rounded-full font-medium hover:bg-white transition-all duration-200 text-sm tracking-wide">
+            Let's Talk
+          </button></a>
+
+        <!-- Mobile Menu Button -->
+        <button id="mobile-menu-btn" class="md:hidden text-secondary focus:outline-none">
+          <i class="fas fa-bars text-xl"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Navigation -->
+    <div id="mobile-menu" class="md:hidden hidden mt-6 pb-4">
+      <div class="flex flex-col space-y-4 px-4">
+        <a href="/about.html" class="hover:text-white transition-colors py-2 text-sm font-medium">Who We Are</a>
+        <a href="#services" class="hover:text-white transition-colors py-2 text-sm font-medium">Our Services</a>
+        <a href="./pricing.html" class="hover:text-white transition-colors py-2 text-sm font-medium">Pricing</a>
+        <a href="#how" class="hover:text-white transition-colors py-2 text-sm font-medium">How we work</a>
+        <a href="/blogs.html" class="hover:text-white transition-colors py-2 text-sm font-medium">Blog</a>
+        <button
+          class="bg-secondary text-primary px-7 py-2.5 rounded-full font-medium hover:bg-white transition-all duration-200 mt-4 w-full text-sm">
+          Let's Talk
+        </button>
+      </div>
+    </div>
+  </nav>
+  <!-- Header -->
+  <section class="relative z-10 min-h-[40vh] flex items-center justify-center text-center bg-primary/10 mt-20">
+    <div>
+      <h1 class="text-4xl md:text-6xl font-bold text-primary mb-3">Our Stories & Reflections</h1>
+      <p class="text-primary opacity-70 text-lg font-light">Sharing comfort, guidance, and inspiration from our journey.</p>
+    </div>
+  </section>
+
+  <!-- Blog Cards -->
+  <section class="relative z-10 py-20 px-6 fade-in">
+    <div class="max-w-7xl mx-auto">
+      <div id="blog-container" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-10"></div>
+    </div>
+  </section>
+</body>
+</html>
