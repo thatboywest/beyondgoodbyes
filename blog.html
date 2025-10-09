@@ -3,10 +3,64 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <!-- Basic SEO - Will be dynamically updated -->
   <title>Blog | Beyond Goodbyes</title>
+  <meta name="description" content="Read insights and guidance on navigating life's transitions with grace and compassion." />
+  <meta name="keywords" content="funeral services, end of life, grief support, memorial planning" />
+  <meta name="author" content="Beyond Goodbyes" />
+  
+  <!-- Favicon - Will be dynamically updated to blog cover image -->
+  <link rel="icon" type="image/x-icon" href="/assets/favicon.ico" id="dynamic-favicon" />
+  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" id="dynamic-apple-icon" />
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="Beyond Goodbyes" />
+  <meta property="og:title" content="Blog | Beyond Goodbyes" id="og-title" />
+  <meta property="og:description" content="Read insights and guidance on navigating life's transitions." id="og-description" />
+  <meta property="og:image" content="/assets/default-blog-image.jpg" id="og-image" />
+  <meta property="og:url" content="" id="og-url" />
+  
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Blog | Beyond Goodbyes" id="twitter-title" />
+  <meta name="twitter:description" content="Read insights and guidance on navigating life's transitions." id="twitter-description" />
+  <meta name="twitter:image" content="/assets/default-blog-image.jpg" id="twitter-image" />
+  
+  <!-- Canonical URL -->
+  <link rel="canonical" href="" id="canonical-url" />
+  
+  <!-- Structured Data for Article - Will be populated dynamically -->
+  <script type="application/ld+json" id="article-schema">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Blog Article",
+    "description": "Read our latest article",
+    "image": "/assets/default-blog-image.jpg",
+    "author": {
+      "@type": "Person",
+      "name": "Beyond Goodbyes"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Beyond Goodbyes",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://beyondgoodbyes.com/assets/beyondgoodbyes.png"
+      }
+    },
+    "datePublished": "",
+    "dateModified": ""
+  }
+  </script>
+
+  <!-- Stylesheets -->
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
   <link rel="stylesheet" href="index.css">
+   <link rel="icon" href="/assets/beyondgoodbyes.png" type="image/x-icon" />
   <style>
     .prose img {
       border-radius: 0.75rem;
@@ -46,6 +100,81 @@
       text-decoration: underline;
     }
   </style>
+
+  <script>
+    // Function to update SEO meta tags dynamically after blog loads
+    function updateSEOMetaTags(post) {
+      const currentUrl = window.location.href;
+      const coverImage = post.coverImage?.url || '/assets/default-blog-image.jpg';
+      const description = post.brief || post.subtitle || 'Read our latest article on Beyond Goodbyes';
+      
+      // Update title
+      document.title = `${post.title} | Beyond Goodbyes`;
+      document.querySelector('meta[name="description"]').setAttribute('content', description);
+      document.querySelector('meta[name="author"]').setAttribute('content', post.author.name);
+      
+      // Update Open Graph
+      document.getElementById('og-title').setAttribute('content', post.title);
+      document.getElementById('og-description').setAttribute('content', description);
+      document.getElementById('og-image').setAttribute('content', coverImage);
+      document.getElementById('og-url').setAttribute('content', currentUrl);
+      
+      // Update Twitter Card
+      document.getElementById('twitter-title').setAttribute('content', post.title);
+      document.getElementById('twitter-description').setAttribute('content', description);
+      document.getElementById('twitter-image').setAttribute('content', coverImage);
+      
+      // Update Canonical URL
+      document.getElementById('canonical-url').setAttribute('href', currentUrl);
+      
+      // Update favicon to blog cover image
+      if (post.coverImage?.url) {
+        document.getElementById('dynamic-favicon').setAttribute('href', coverImage);
+        document.getElementById('dynamic-apple-icon').setAttribute('href', coverImage);
+      }
+      
+      // Update Article Schema
+      const articleSchema = {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": post.title,
+        "description": description,
+        "image": coverImage,
+        "datePublished": post.publishedAt,
+        "dateModified": post.publishedAt,
+        "author": {
+          "@type": "Person",
+          "name": post.author.name,
+          "image": post.author.profilePicture || undefined
+        },
+        "publisher": {
+          "@type": "Organization",
+          "name": "Beyond Goodbyes",
+          "logo": {
+            "@type": "ImageObject",
+            "url": window.location.origin + "/assets/beyondgoodbyes.png"
+          }
+        },
+        "mainEntityOfPage": {
+          "@type": "WebPage",
+          "@id": currentUrl
+        }
+      };
+      
+      // Add keywords if tags exist
+      if (post.tags && post.tags.length > 0) {
+        articleSchema.keywords = post.tags.map(tag => tag.name).join(', ');
+        document.querySelector('meta[name="keywords"]').setAttribute('content', articleSchema.keywords);
+      }
+      
+      // Add word count and reading time
+      if (post.readTimeInMinutes) {
+        articleSchema.timeRequired = `PT${post.readTimeInMinutes}M`;
+      }
+      
+      document.getElementById('article-schema').textContent = JSON.stringify(articleSchema, null, 2);
+    }
+  </script>
 </head>
 <body class="bg-gray-50 text-gray-900">
   <!-- Navbar -->
