@@ -4,24 +4,46 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Blog | Beyond Goodbyes</title>
-  <script defer src="/scripts/single.js"></script>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
   <link rel="stylesheet" href="index.css">
   <style>
-    .fade-in {
-      opacity: 0;
-      transform: translateY(20px);
-      animation: fadeIn 1s ease-out forwards;
-    }
-    @keyframes fadeIn {
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
     .prose img {
       border-radius: 0.75rem;
+      margin: 2rem 0;
+    }
+    .prose h2 {
+      font-size: 1.875rem;
+      font-weight: 700;
+      margin-top: 2.5rem;
+      margin-bottom: 1rem;
+    }
+    .prose h3 {
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin-top: 2rem;
+      margin-bottom: 0.75rem;
+    }
+    .prose p {
+      margin-bottom: 1.25rem;
+      line-height: 1.8;
+    }
+    .prose ul, .prose ol {
       margin: 1.5rem 0;
+      padding-left: 1.5rem;
+    }
+    .prose li {
+      margin-bottom: 0.5rem;
+    }
+    .prose blockquote {
+      border-left: 4px solid var(--primary-color, #667eea);
+      padding-left: 1.5rem;
+      margin: 2rem 0;
+      font-style: italic;
+    }
+    .prose a {
+      color: var(--primary-color, #667eea);
+      text-decoration: underline;
     }
   </style>
 </head>
@@ -29,44 +51,32 @@
   <!-- Navbar -->
   <nav class="bg-primary text-secondary py-5 px-6 shadow-xl fixed top-0 left-0 right-0 z-50">
     <div class="max-w-7xl mx-auto flex justify-between items-center">
-      <!-- Logo -->
       <a href="/index.html">
         <div class="flex items-center space-x-3">
           <img src="/assets/beyondgoodbyes (1).png" alt="Beyond Logo" class="w-55 h-12 object-contain" />
         </div>
       </a>
 
-      <!-- Desktop Navigation -->
       <div class="hidden md:flex space-x-10">
-        <a href="/about.html"
-          class="text-sm font-medium hover:text-white transition-colors duration-200 tracking-wide">Who We Are</a>
-
-        <a href="#services"
-          class="text-sm font-medium hover:text-white transition-colors duration-200 tracking-wide">Our Services</a>
-        <a href="./pricing.html"
-          class="text-sm font-medium hover:text-white transition-colors duration-200 tracking-wide">Pricing</a>
-        <a href="#how" class="text-sm font-medium hover:text-white transition-colors duration-200 tracking-wide">How We
-          Work</a>
-        <a href="/blogs.html"
-          class="text-sm font-medium hover:text-white transition-colors duration-200 tracking-wide">Blog</a>
+        <a href="/about.html" class="text-sm font-medium hover:text-white transition-colors duration-200 tracking-wide">Who We Are</a>
+        <a href="#services" class="text-sm font-medium hover:text-white transition-colors duration-200 tracking-wide">Our Services</a>
+        <a href="./pricing.html" class="text-sm font-medium hover:text-white transition-colors duration-200 tracking-wide">Pricing</a>
+        <a href="#how" class="text-sm font-medium hover:text-white transition-colors duration-200 tracking-wide">How We Work</a>
+        <a href="/blogs.html" class="text-sm font-medium hover:text-white transition-colors duration-200 tracking-wide">Blog</a>
       </div>
 
-      <!-- CTA Button and Mobile Menu -->
       <div class="flex items-center space-x-4">
         <a href="/contact.html">
-          <button
-            class="hidden md:block bg-secondary text-primary px-7 py-2.5 rounded-full font-medium hover:bg-white transition-all duration-200 text-sm tracking-wide">
+          <button class="hidden md:block bg-secondary text-primary px-7 py-2.5 rounded-full font-medium hover:bg-white transition-all duration-200 text-sm tracking-wide">
             Let's Talk
-          </button></a>
-
-        <!-- Mobile Menu Button -->
+          </button>
+        </a>
         <button id="mobile-menu-btn" class="md:hidden text-secondary focus:outline-none">
           <i class="fas fa-bars text-xl"></i>
         </button>
       </div>
     </div>
 
-    <!-- Mobile Navigation -->
     <div id="mobile-menu" class="md:hidden hidden mt-6 pb-4">
       <div class="flex flex-col space-y-4 px-4">
         <a href="/about.html" class="hover:text-white transition-colors py-2 text-sm font-medium">Who We Are</a>
@@ -74,58 +84,237 @@
         <a href="./pricing.html" class="hover:text-white transition-colors py-2 text-sm font-medium">Pricing</a>
         <a href="#how" class="hover:text-white transition-colors py-2 text-sm font-medium">How we work</a>
         <a href="/blogs.html" class="hover:text-white transition-colors py-2 text-sm font-medium">Blog</a>
-        <button
-          class="bg-secondary text-primary px-7 py-2.5 rounded-full font-medium hover:bg-white transition-all duration-200 mt-4 w-full text-sm">
+        <a href="/contact.html" class="bg-secondary text-primary px-7 py-2.5 rounded-full font-medium hover:bg-white transition-all duration-200 mt-4 w-full text-sm text-center block">
           Let's Talk
-        </button>
+        </a>
       </div>
     </div>
   </nav>
-  <section class="relative z-10 py-20 px-6 fade-in">
-    <div class="max-w-4xl mx-auto bg-white p-10 rounded-2xl shadow-md">
-      <div id="blog-content"></div>
+
+  <!-- Main Content -->
+  <div class="pt-32 pb-20 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-5xl mx-auto">
+      <!-- Breadcrumb -->
+      <nav class="mb-8 text-sm" aria-label="Breadcrumb">
+        <ol class="flex items-center space-x-2 text-gray-600">
+          <li>
+            <a href="/index.html" class="hover:text-primary transition-colors">
+              <i class="fas fa-home"></i> Home
+            </a>
+          </li>
+          <li><i class="fas fa-chevron-right text-xs"></i></li>
+          <li>
+            <a href="/blogs.html" class="hover:text-primary transition-colors">Blog</a>
+          </li>
+          <li><i class="fas fa-chevron-right text-xs"></i></li>
+          <li class="text-gray-900 font-medium" id="breadcrumb-title">Loading...</li>
+        </ol>
+      </nav>
+
+      <!-- Blog Content Container -->
+      <article class="bg-white rounded-2xl shadow-lg overflow-hidden">
+        <!-- Loading State -->
+        <div id="loading-state" class="p-8 md:p-12 lg:p-16">
+          <div class="animate-pulse">
+            <div class="h-8 bg-gray-200 rounded w-3/4 mb-4"></div>
+            <div class="h-4 bg-gray-200 rounded w-1/4 mb-8"></div>
+            <div class="h-64 bg-gray-200 rounded mb-8"></div>
+            <div class="space-y-3">
+              <div class="h-4 bg-gray-200 rounded"></div>
+              <div class="h-4 bg-gray-200 rounded"></div>
+              <div class="h-4 bg-gray-200 rounded w-5/6"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Blog Content -->
+        <div id="blog-content" class="hidden"></div>
+      </article>
     </div>
-  </section>
-</body>
- <script>
+  </div>
+
+  <script>
     // Mobile menu toggle
-    document
-      .getElementById("mobile-menu-btn")
-      .addEventListener("click", function () {
-        const mobileMenu = document.getElementById("mobile-menu");
-        mobileMenu.classList.toggle("hidden");
-      });
-    function toggleFAQ(id) {
-      const answer = document.getElementById(`answer-${id}`);
-      const toggle = document.getElementById(`toggle-${id}`);
-      const icon = toggle.querySelector("i");
+    document.getElementById("mobile-menu-btn").addEventListener("click", function () {
+      const mobileMenu = document.getElementById("mobile-menu");
+      mobileMenu.classList.toggle("hidden");
+    });
 
-      // Close all other FAQs
-      for (let i = 1; i <= 5; i++) {
-        if (i !== id) {
-          const otherAnswer = document.getElementById(`answer-${i}`);
-          const otherToggle = document.getElementById(`toggle-${i}`);
-          const otherIcon = otherToggle.querySelector("i");
+    const blogContent = document.getElementById("blog-content");
+    const loadingState = document.getElementById("loading-state");
+    const breadcrumbTitle = document.getElementById("breadcrumb-title");
+    const HASHNODE_API = "https://gql.hashnode.com";
+    const PUBLICATION_HOST = "beyonggoodbyes.hashnode.dev";
 
-          otherAnswer.classList.remove("open");
-          otherToggle.classList.remove("rotated");
-          otherIcon.classList.remove("fa-minus");
-          otherIcon.classList.add("fa-plus");
+    const urlParams = new URLSearchParams(window.location.search);
+    const slug = urlParams.get("slug");
+
+    if (!slug) {
+      loadingState.classList.add("hidden");
+      blogContent.classList.remove("hidden");
+      blogContent.innerHTML = '<div class="p-8 md:p-12 text-center"><p class="text-red-600 text-lg">Invalid blog post URL.</p></div>';
+    } else {
+      const query = `
+        query GetPost($host: String!, $slug: String!) {
+          publication(host: $host) {
+            post(slug: $slug) {
+              title
+              subtitle
+              brief
+              content { html }
+              coverImage { url }
+              publishedAt
+              readTimeInMinutes
+              author {
+                name
+                profilePicture
+                bio { text }
+              }
+              tags {
+                name
+                slug
+              }
+            }
+          }
         }
-      }
+      `;
 
-      // Toggle current FAQ
-      if (answer.classList.contains("open")) {
-        answer.classList.remove("open");
-        toggle.classList.remove("rotated");
-        icon.classList.remove("fa-minus");
-        icon.classList.add("fa-plus");
-      } else {
-        answer.classList.add("open");
-        toggle.classList.add("rotated");
-        icon.classList.remove("fa-plus");
-        icon.classList.add("fa-minus");
-      }
+      fetch(HASHNODE_API, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ query, variables: { host: PUBLICATION_HOST, slug } }),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          const post = data.data.publication.post;
+          
+          if (!post) {
+            throw new Error("Post not found");
+          }
+
+          // Update breadcrumb
+          breadcrumbTitle.textContent = post.title.length > 50 ? post.title.substring(0, 50) + "..." : post.title;
+
+          // Format date
+          const publishDate = new Date(post.publishedAt);
+          const formattedDate = publishDate.toLocaleDateString('en-US', { 
+            year: 'numeric', 
+            month: 'long', 
+            day: 'numeric' 
+          });
+
+          // Build tags HTML
+          const tagsHTML = post.tags && post.tags.length > 0 ? `
+            <div class="flex flex-wrap gap-2 mb-6">
+              ${post.tags.map(tag => `
+                <span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm font-medium">
+                  ${tag.name}
+                </span>
+              `).join('')}
+            </div>
+          ` : '';
+
+          blogContent.innerHTML = `
+            <div class="p-6 sm:p-8 md:p-12 lg:p-16">
+              <!-- Title -->
+              <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-4 leading-tight">
+                ${post.title}
+              </h1>
+
+              ${post.subtitle ? `
+                <p class="text-xl text-gray-600 mb-6 leading-relaxed">${post.subtitle}</p>
+              ` : ''}
+
+              <!-- Meta Information -->
+              <div class="flex flex-wrap items-center gap-4 sm:gap-6 py-6 border-t border-b border-gray-200 mb-8">
+                <div class="flex items-center gap-3">
+                  ${post.author.profilePicture ? `
+                    <img src="${post.author.profilePicture}" alt="${post.author.name}" class="w-12 h-12 rounded-full object-cover border-2 border-primary" />
+                  ` : `
+                    <div class="w-12 h-12 rounded-full bg-primary text-secondary flex items-center justify-center font-bold text-lg">
+                      ${post.author.name.charAt(0)}
+                    </div>
+                  `}
+                  <div>
+                    <p class="font-semibold text-gray-900">${post.author.name}</p>
+                    <p class="text-sm text-gray-600">${formattedDate}</p>
+                  </div>
+                </div>
+                <div class="flex items-center gap-4 text-sm text-gray-600">
+                  <span class="flex items-center gap-2">
+                    <i class="far fa-clock text-primary"></i>
+                    ${post.readTimeInMinutes} min read
+                  </span>
+                </div>
+              </div>
+
+              <!-- Tags -->
+              ${tagsHTML}
+
+              <!-- Cover Image -->
+              ${post.coverImage?.url ? `
+                <div class="mb-10 -mx-6 sm:-mx-8 md:-mx-12 lg:-mx-16">
+                  <img src="${post.coverImage.url}" alt="${post.title}" class="w-full h-64 sm:h-96 lg:h-[500px] object-cover" />
+                </div>
+              ` : ''}
+
+              <!-- Brief/Excerpt -->
+              ${post.brief ? `
+                <div class="mb-8 p-6 bg-gray-50 border-l-4 border-primary rounded-r-lg">
+                  <p class="text-lg text-gray-700 italic leading-relaxed">${post.brief}</p>
+                </div>
+              ` : ''}
+
+              <!-- Article Content -->
+              <div class="prose prose-lg max-w-none text-gray-800">
+                ${post.content.html}
+              </div>
+
+              <!-- Author Bio -->
+              ${post.author.bio?.text ? `
+                <div class="mt-12 pt-8 border-t border-gray-200">
+                  <h3 class="text-xl font-bold text-gray-900 mb-4">About the Author</h3>
+                  <div class="flex gap-4">
+                    ${post.author.profilePicture ? `
+                      <img src="${post.author.profilePicture}" alt="${post.author.name}" class="w-16 h-16 rounded-full object-cover flex-shrink-0" />
+                    ` : ''}
+                    <div>
+                      <p class="font-semibold text-lg text-gray-900 mb-2">${post.author.name}</p>
+                      <p class="text-gray-700 leading-relaxed">${post.author.bio.text}</p>
+                    </div>
+                  </div>
+                </div>
+              ` : ''}
+
+              <!-- Back to Blog -->
+              <div class="mt-12 pt-8 border-t border-gray-200">
+                <a href="/blogs.html" class="inline-flex items-center gap-2 text-primary hover:text-secondary font-medium transition-colors">
+                  <i class="fas fa-arrow-left"></i>
+                  Back to All Posts
+                </a>
+              </div>
+            </div>
+          `;
+
+          loadingState.classList.add("hidden");
+          blogContent.classList.remove("hidden");
+        })
+        .catch((err) => {
+          console.error(err);
+          loadingState.classList.add("hidden");
+          blogContent.classList.remove("hidden");
+          blogContent.innerHTML = `
+            <div class="p-8 md:p-12 text-center">
+              <i class="fas fa-exclamation-circle text-red-500 text-5xl mb-4"></i>
+              <p class="text-red-600 text-lg mb-4">Failed to load blog post.</p>
+              <a href="/blogs.html" class="inline-flex items-center gap-2 text-primary hover:text-secondary font-medium transition-colors">
+                <i class="fas fa-arrow-left"></i>
+                Back to All Posts
+              </a>
+            </div>
+          `;
+        });
     }
   </script>
+</body>
 </html>
